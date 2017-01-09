@@ -9,6 +9,7 @@ import (
 type Rancher struct {
 	Url        string `json:"url"`
 	AccessKey  string `json:"access_key"`
+	Prefix     string `json:"prefix"`
 	SecretKey  string `json:"secret_key"`
 	Service    string `json:"service"`
 	Image      string `json:"docker_image"`
@@ -38,9 +39,9 @@ func main() {
 			EnvVar: "PLUGIN_ACCESS_KEY, RANCHER_ACCESS_KEY",
 		},
 		cli.StringFlag{
-			Name:   "secret-key",
-			Usage:  "rancher secret key",
-			EnvVar: "PLUGIN_SECRET_KEY, RANCHER_SECRET_KEY",
+			Name:   "prefix",
+			Usage:  "rancher environment prefix",
+			EnvVar: "PLUGIN_PREFIX",
 		},
 		cli.StringFlag{
 			Name:   "service",
@@ -75,6 +76,20 @@ func main() {
 		},
 	}
 
+	if os.Getenv("PLUGIN_PREFIX") != "" {
+		app.Flags = append(app.Flags, cli.StringFlag{
+				Name:   "secret-key",
+				Usage:  "rancher secret key",
+				EnvVar: "PLUGIN_SECRET_KEY, " + os.Getenv("PLUGIN_PREFIX") + "_RANCHER_SECRET_KEY",
+		})
+	} else {
+		app.Flags = append(app.Flags, cli.StringFlag{
+			Name:   "secret-key",
+			Usage:  "rancher secret key",
+			EnvVar: "PLUGIN_SECRET_KEY, RANCHER_SECRET_KEY",
+		})
+	}
+
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
 	}
@@ -84,6 +99,7 @@ func run(c *cli.Context) error {
 	plugin := Plugin{
 		URL:     c.String("url"),
 		Key:          c.String("access-key"),
+		Prefix: 			c.String("prefix"),
 		Secret:       c.String("secret-key"),
 		Service:       c.String("service"),
 		DockerImage:    c.String("docker-image"),
@@ -94,4 +110,3 @@ func run(c *cli.Context) error {
 	}
 	return plugin.Exec()
 }
-
