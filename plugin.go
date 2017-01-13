@@ -21,8 +21,6 @@ type Plugin struct {
 	YamlVerified bool
 }
 
-var version string
-
 func (p *Plugin) Exec() error {
 	log.Info("Drone Rancher Plugin built")
 
@@ -96,7 +94,7 @@ func (p *Plugin) Exec() error {
 	}
 
 	upgrade.AddLabelInput = &client.AddLabelInputClient{
-		BuildNumber:	service.version
+		BuildNumber:	version
 	}
 
 	log.Info(fmt.Sprintf("Upgraded %s to %s\n", p.Service, p.DockerImage))
