@@ -94,7 +94,7 @@ func (p *Plugin) Exec() error {
 	}
 
 	upgrade.AddLabelInput = &client.AddLabelInputClient{
-		BuildNumber:	version
+		BuildNumber:	version,
 	}
 
 	log.Info(fmt.Sprintf("Upgraded %s to %s\n", p.Service, p.DockerImage))
@@ -122,7 +122,6 @@ func (p *Plugin) Exec() error {
 		}
 	return nil
 }
-
 
 type retryFunc func() (interface{}, error)
 
