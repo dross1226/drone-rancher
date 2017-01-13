@@ -93,6 +93,11 @@ func (p *Plugin) Exec() error {
 		return errors.New(fmt.Sprintf("Unable to upgrade service %s: %s\n", p.Service, err))
 	}
 
+	writeVersion := &client.AddLabelInput{}
+	writeVersion.Create = &client.Create{
+		BuildNumber: version,
+	}
+
 	log.Info(fmt.Sprintf("Upgraded %s to %s\n", p.Service, p.DockerImage))
 		if p.Confirm {
 			srv, err := retry(func() (interface{}, error) {
@@ -118,7 +123,6 @@ func (p *Plugin) Exec() error {
 		}
 	return nil
 }
-
 
 type retryFunc func() (interface{}, error)
 
