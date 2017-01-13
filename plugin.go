@@ -93,8 +93,8 @@ func (p *Plugin) Exec() error {
 		return errors.New(fmt.Sprintf("Unable to upgrade service %s: %s\n", p.Service, err))
 	}
 
-	writeVersion := &client.AddLabelInput{}
-	writeVersion.AddLabelInputOperations = &client.Create{
+	writeVersion := &client.SetLabelsInput{}
+	writeVersion.AddLabelInputOperations = &client.Label{
 		BuildNumber: version,
 	}
 
