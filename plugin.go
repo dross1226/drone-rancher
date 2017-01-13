@@ -94,7 +94,7 @@ func (p *Plugin) Exec() error {
 	}
 
 	writeVersion := &client.AddLabelInput{}
-	writeVersion.Create = &client.Create{
+	writeVersion.AddLabelInputOperations = &client.Create{
 		BuildNumber: version,
 	}
 
