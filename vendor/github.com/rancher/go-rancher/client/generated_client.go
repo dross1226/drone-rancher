@@ -5,6 +5,7 @@ type RancherClient struct {
 
 	Account                                  AccountOperations
 	ActiveSetting                            ActiveSettingOperations
+	AddLabelInput														 AddLabelInputOperations
 	AddOutputsInput                          AddOutputsInputOperations
 	AddRemoveLoadBalancerServiceLinkInput    AddRemoveLoadBalancerServiceLinkInputOperations
 	AddRemoveServiceLinkInput                AddRemoveServiceLinkInputOperations
@@ -150,6 +151,7 @@ func constructClient() *RancherClient {
 
 	client.Account = newAccountClient(client)
 	client.ActiveSetting = newActiveSettingClient(client)
+	client.AddLabelInput = newAddLabelInputClient(client)
 	client.AddOutputsInput = newAddOutputsInputClient(client)
 	client.AddRemoveLoadBalancerServiceLinkInput = newAddRemoveLoadBalancerServiceLinkInputClient(client)
 	client.AddRemoveServiceLinkInput = newAddRemoveServiceLinkInputClient(client)
