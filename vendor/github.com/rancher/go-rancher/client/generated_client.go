@@ -5,7 +5,7 @@ type RancherClient struct {
 
 	Account                                  AccountOperations
 	ActiveSetting                            ActiveSettingOperations
-	AddLabelInput														 AddLabelInputOperations
+	AddLabelInput		   											 AddLabelInputOperations
 	AddOutputsInput                          AddOutputsInputOperations
 	AddRemoveLoadBalancerServiceLinkInput    AddRemoveLoadBalancerServiceLinkInputOperations
 	AddRemoveServiceLinkInput                AddRemoveServiceLinkInputOperations
