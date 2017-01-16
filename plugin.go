@@ -94,9 +94,8 @@ func (p *Plugin) Exec() error {
 	}
 
 	writeVersion := &client.AddLabelInput{}
-	writeVersion.create { 
-		BuildNumber: version,
-	}
+	writeVersion.Key = "BuildVersion"
+	writeVersion.Value = version
 
 	log.Info(fmt.Sprintf("Upgraded %s to %s\n", p.Service, p.DockerImage))
 		if p.Confirm {
